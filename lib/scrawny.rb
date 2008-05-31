@@ -8,6 +8,9 @@ module Scrawny
       establish_db_connection
       
       @server = Thin::Server.new '0.0.0.0', 5432 do
+        use Rack::CommonLogger
+        use Rack::ShowExceptions
+        
         map('/') { run Invisible::Application.new }
       end
       
