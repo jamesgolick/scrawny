@@ -8,7 +8,8 @@ module ::Invisible
     
     def call(env)
       _, controller, action = env["PATH_INFO"].split("/")
-      Object.const_get("#{(controller || 'home').capitalize}Controller").new(env).call(action_for(env['REQUEST_METHOD'], action))
+      controller.gsub!(/\..*/, '') if controller
+      Object.const_get("#{(controller || 'home').classify}Controller").new(env).call(action_for(env['REQUEST_METHOD'], action))
     end
     
     protected

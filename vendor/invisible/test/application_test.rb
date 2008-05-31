@@ -35,4 +35,12 @@ Expectations do
   expect TestController.any_instance.to.receive(:call).with(:create) do
     Application.new.call({'PATH_INFO' => '/test', 'REQUEST_METHOD' => 'POST'})
   end
+  
+  expect TestController.any_instance.to.receive(:call).with(:create) do
+    Application.new.call({'PATH_INFO' => '/test.xml', 'REQUEST_METHOD' => 'POST'})
+  end
+  
+  expect TestController.any_instance.to.receive(:call).with(:destroy) do
+    Application.new.call({'PATH_INFO' => '/test/something.xml', 'REQUEST_METHOD' => 'DELETE'})
+  end
 end
