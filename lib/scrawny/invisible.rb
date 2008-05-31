@@ -2,10 +2,19 @@ module Scrawny
   module Invisible
     
     class Application
+      MEMBER_ACTIONS     = { 'PUT'  => :update, 'DELETE' => :destroy, 'GET' => :show }
+      COLLECTION_ACTIONS = { 'POST' => :create, 'GET'    => :index }
+      
       def call(env)
         _, controller, action = env["PATH_INFO"].split("/")
         Object.const_get("#{(controller || 'home').capitalize}Controller").new(env).call(action || 'index')
       end
+      
+      protected
+        def action_for(method, path)
+          action_hash = path.blank? ? COLLECTION_ACTIONS : MEMBER_ACTIONS
+          action_hash[method]
+        end
     end
 
     class Controller
