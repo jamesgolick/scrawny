@@ -5,6 +5,8 @@ require File.dirname(__FILE__)+'/../vendor/invisible/lib/invisible'
 module Scrawny
   class << self
     def start!
+      Invisible::Application.controllers_module = Scrawny
+      
       establish_db_connection
       
       @server = Thin::Server.new '0.0.0.0', 5432 do
