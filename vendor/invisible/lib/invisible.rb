@@ -9,7 +9,7 @@ module ::Invisible
     def call(env)
       _, controller, action = env["PATH_INFO"].split("/")
       controller.gsub!(/\..*/, '') if controller
-      Object.const_get("#{(controller || 'home').camelize}Controller").new(env).call(action_for(env['REQUEST_METHOD'], action))
+      Scrawny.const_get("#{(controller || 'home').camelize}Controller").new(env).call(action_for(env['REQUEST_METHOD'], action))
     end
     
     protected
@@ -25,6 +25,7 @@ module ::Invisible
       @headers = { 'Content-Type' => 'text/html' }
       @body    = nil
       @request = Rack::Request.new(env)
+      @env     = env
     end
 
     def call(action)
