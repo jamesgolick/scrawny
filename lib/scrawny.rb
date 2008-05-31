@@ -30,6 +30,7 @@ module Scrawny
         unless QueueItem.table_exists?
           ActiveRecord::Migration.create_table :queue_items do |t|
             t.text :value
+            t.datetime :created_at
           end
         end
       end
