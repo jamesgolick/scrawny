@@ -6,8 +6,8 @@ module Scrawny
       ''
     end
     
-    def delete_collection
-      QueueItem.pop
+    def destroy
+      QueueItem.pop.to_xml
     end
   end
 end

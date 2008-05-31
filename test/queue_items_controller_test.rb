@@ -23,8 +23,14 @@ Expectations do
     c.call(:create).last
   end
   
-  expect QueueItem.to.receive(:pop) do
+  expect QueueItem.to.receive(:pop).returns({}) do
     c = QueueItemsController.new({})
-    c.call(:delete_collection)
+    c.call(:destroy)
+  end
+  
+  expect String do
+    QueueItem.stubs(:pop).returns({})
+    c = QueueItemsController.new({})
+    c.call(:destroy).last
   end
 end
