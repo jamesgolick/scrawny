@@ -6,8 +6,8 @@ module Scrawny
       ''
     end
     
-    def destroy
-      QueueItem.pop.to_xml
+    def show
+      QueueItem.pop.to_xml(:root => 'queue-item')
     end
   end
 end

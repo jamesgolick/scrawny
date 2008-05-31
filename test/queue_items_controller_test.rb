@@ -25,12 +25,12 @@ Expectations do
   
   expect QueueItem.to.receive(:pop).returns({}) do
     c = QueueItemsController.new({})
-    c.call(:destroy)
+    c.call(:show)
   end
   
   expect String do
     QueueItem.stubs(:pop).returns({})
     c = QueueItemsController.new({})
-    c.call(:destroy).last
+    c.call(:show).last
   end
 end
