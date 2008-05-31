@@ -7,7 +7,7 @@ module Scrawny
       
       def call(env)
         _, controller, action = env["PATH_INFO"].split("/")
-        Object.const_get("#{(controller || 'home').capitalize}Controller").new(env).call(action || 'index')
+        Object.const_get("#{(controller || 'home').capitalize}Controller").new(env).call(action_for(env['REQUEST_METHOD'], action))
       end
       
       protected

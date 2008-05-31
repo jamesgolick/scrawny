@@ -2,6 +2,10 @@ require File.dirname(__FILE__)+'/test_helper'
 
 include Scrawny::Invisible
 
+class TestController < Controller
+  def index; end
+end
+
 Expectations do
   
   expect :create do
@@ -24,4 +28,11 @@ Expectations do
     Application.new.send(:action_for, 'DELETE', 'something')
   end
   
+  expect TestController.to.receive(:new).returns(stub_everything) do
+    Application.new.call({'PATH_INFO' => '/test'})
+  end
+  
+  expect TestController.any_instance.to.receive(:call).with(:create) do
+    Application.new.call({'PATH_INFO' => '/test', 'REQUEST_METHOD' => 'POST'})
+  end
 end
