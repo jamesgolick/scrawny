@@ -9,6 +9,20 @@ Expectations do
     c.call(:create)
   end
   
+  expect '/queue_items/5' do
+    QueueItem.stubs(:create).returns(stub(:id => 5))
+    c = QueueItemsController.new({})
+    c.stubs(:params).returns({})
+    c.call(:create)[1]['Location']
+  end
+  
+  expect '' do
+    QueueItem.stubs(:create).returns(stub(:id => 5))
+    c = QueueItemsController.new({})
+    c.stubs(:params).returns({})
+    c.call(:create).last
+  end
+  
   expect QueueItem.to.receive(:pop) do
     c = QueueItemsController.new({})
     c.call(:delete_collection)

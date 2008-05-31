@@ -1,7 +1,9 @@
 module Scrawny
   class QueueItemsController < ::Invisible::Controller
     def create
-      QueueItem.create(params[:queue_item])
+      @queue_item = QueueItem.create(params[:queue_item])
+      @headers['Location'] = "/queue_items/#{@queue_item.id}"
+      ''
     end
     
     def delete_collection
