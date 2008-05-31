@@ -1,10 +1,6 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
-require 'rubygems'
-require 'activesupport'
-require 'activerecord'
-require 'thin'
-require 'scrawny/queue_item'
 require File.dirname(__FILE__)+'/../vendor/invisible/lib/invisible'
+%w(rubygems activesupport activerecord thin scrawny/queue_item scrawny/queue_items_controller ).each { |l| require l }
 
 module Scrawny
   class << self
